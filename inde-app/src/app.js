@@ -4,43 +4,73 @@ console.log('App.JS is running!');
 
 var app = {
     title: "Indecision App",
-    subTitle: "Let an app make your choices for you!"
+    subTitle: "Let an app make your choices for you!",
+    options: ["one", "two"]
+}; 
+
+// Checks to see if subtitle exists - logical style
+// function subtitleExist(subTitle){
+//     if (subTitle){
+//         return <p>{subTitle}</p>;
+//     } else {
+//         return 'Unknown';
+//     }
+// }
+
+function userOptions(options){
+    if(options.length > 0){
+        return <p>Here are your options!</p>;
+    } else {
+        return "No options";
+    }
 }
+
+//if the above function is used, then you use {userOptions(app.options)} in the HTML to render the text to the screen
 
 var template = (
     <div>
         <h1>{app.title}</h1>
-        <p>{app.subTitle}</p>
+        
+        {app.subTitle && <p>{app.subTitle}</p>}
 
-        <ol>
-            <li>One</li>
-            <li>Two</li>
-            <li>Three</li>
-        </ol>
+        {app.options.length > 0 ? 'Here are your options!' : 'No options'}
+
+        <ul>
+            <li>Item One</li>
+            <li>Item Two</li>
+        </ul>
+
     </div>);
+
+
+
+
+
+
+
+
+
+
 
 //////////////////////////////////////////////////////////
 
 var user = {
-    name: 'Sydney',
+    // name: 'Sydney',
     age: 21,
     userLocation: 'Indianapolis'
 }
 
+// checks to see if userLocation exists
 function getLocation(userLocation){
     if (userLocation){
         return <p>Location: {userLocation}</p>;
     }
    };
 
-// var userName = "Sydney";
-// var age = 21;
-// var userLocation = "Indianapolis";
-
 var templateTwo = (
     <div>
-        <h1>{user.name}</h1>
-        <p>Age: {user.age}</p>
+        <h1>{user.name ? user.name : 'Anonymous'}</h1>
+        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
         {getLocation(user.userLocation)}
         
     </div>
@@ -48,5 +78,7 @@ var templateTwo = (
 
 
 var appRoot = document.getElementById('app');
+var userRoot = document.getElementById('user');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
+ReactDOM.render(templateTwo, userRoot);

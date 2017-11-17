@@ -6,8 +6,32 @@ console.log('App.JS is running!');
 
 var app = {
     title: "Indecision App",
-    subTitle: "Let an app make your choices for you!"
+    subTitle: "Let an app make your choices for you!",
+    options: ["one", "two"]
 };
+
+// Checks to see if subtitle exists - logical style
+// function subtitleExist(subTitle){
+//     if (subTitle){
+//         return <p>{subTitle}</p>;
+//     } else {
+//         return 'Unknown';
+//     }
+// }
+
+function userOptions(options) {
+    if (options.length > 0) {
+        return React.createElement(
+            "p",
+            null,
+            "Here are your options!"
+        );
+    } else {
+        return "No options";
+    }
+}
+
+//if the above function is used, then you use {userOptions(app.options)} in the HTML to render the text to the screen
 
 var template = React.createElement(
     "div",
@@ -17,28 +41,24 @@ var template = React.createElement(
         null,
         app.title
     ),
-    React.createElement(
+    app.subTitle && React.createElement(
         "p",
         null,
         app.subTitle
     ),
+    app.options.length > 0 ? 'Here are your options!' : 'No options',
     React.createElement(
-        "ol",
+        "ul",
         null,
         React.createElement(
             "li",
             null,
-            "One"
+            "Item One"
         ),
         React.createElement(
             "li",
             null,
-            "Two"
-        ),
-        React.createElement(
-            "li",
-            null,
-            "Three"
+            "Item Two"
         )
     )
 );
@@ -46,12 +66,12 @@ var template = React.createElement(
 //////////////////////////////////////////////////////////
 
 var user = {
-    name: 'Sydney',
+    // name: 'Sydney',
     age: 21,
     userLocation: 'Indianapolis'
-};
 
-function getLocation(userLocation) {
+    // checks to see if userLocation exists
+};function getLocation(userLocation) {
     if (userLocation) {
         return React.createElement(
             "p",
@@ -62,19 +82,15 @@ function getLocation(userLocation) {
     }
 };
 
-// var userName = "Sydney";
-// var age = 21;
-// var userLocation = "Indianapolis";
-
 var templateTwo = React.createElement(
     "div",
     null,
     React.createElement(
         "h1",
         null,
-        user.name
+        user.name ? user.name : 'Anonymous'
     ),
-    React.createElement(
+    user.age && user.age >= 18 && React.createElement(
         "p",
         null,
         "Age: ",
@@ -84,5 +100,7 @@ var templateTwo = React.createElement(
 );
 
 var appRoot = document.getElementById('app');
+var userRoot = document.getElementById('user');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
+ReactDOM.render(templateTwo, userRoot);
