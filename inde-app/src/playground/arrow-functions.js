@@ -1,7 +1,5 @@
-'use strict';
-
 //ARROW FUNCTIONS VIDEO NUM ONE//
-console.log('Hello World!');
+ console.log('Hello World!');
 
 // const square = function (x){
 //     return x * x;
@@ -44,23 +42,21 @@ console.log('Hello World!');
 //         const cityMessages = this.cities.map((city) => {
 //             return this.name + " has lived in " + city;
 //         });
-
+        
 //         return cityMessages;
 //     }
 // }
 
 // console.log(user.printPlacesLived());
 
-var multiplier = {
+const multiplier = {
     numbers: [2, 4, 6],
     multiplyBy: 2,
-    multiply: function multiply() {
-        var _this = this;
-
-        var newArray = this.numbers.map(function (num) {
-            return num * _this.multiplyBy;
-        });
-        return newArray;
+    multiply () {
+         const newArray = this.numbers.map((num) => {
+            return num * this.multiplyBy;
+         });
+         return newArray;
     }
 };
 

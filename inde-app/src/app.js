@@ -2,20 +2,11 @@ console.log('App.JS is running!');
 
 //JSX - JavaScript XML
 
-var app = {
+const app = {
     title: "Indecision App",
     subTitle: "Let an app make your choices for you!",
     options: ["one", "two"]
 }; 
-
-// Checks to see if subtitle exists - logical style
-// function subtitleExist(subTitle){
-//     if (subTitle){
-//         return <p>{subTitle}</p>;
-//     } else {
-//         return 'Unknown';
-//     }
-// }
 
 function userOptions(options){
     if(options.length > 0){
@@ -27,7 +18,7 @@ function userOptions(options){
 
 //if the above function is used, then you use {userOptions(app.options)} in the HTML to render the text to the screen
 
-var template = (
+const template = (
     <div>
         <h1>{app.title}</h1>
         
@@ -54,7 +45,7 @@ var template = (
 
 //////////////////////////////////////////////////////////
 
-var user = {
+const user = {
     // name: 'Sydney',
     age: 21,
     userLocation: 'Indianapolis'
@@ -67,7 +58,7 @@ function getLocation(userLocation){
     }
    };
 
-var templateTwo = (
+const templateTwo = (
     <div>
         <h1>{user.name ? user.name : 'Anonymous'}</h1>
         {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
@@ -77,8 +68,8 @@ var templateTwo = (
 );
 
 
-var appRoot = document.getElementById('app');
-var userRoot = document.getElementById('user');
+const appRoot = document.getElementById('app');
+const userRoot = document.getElementById('user');
 
 ReactDOM.render(template, appRoot);
 ReactDOM.render(templateTwo, userRoot);
