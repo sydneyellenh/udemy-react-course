@@ -5,8 +5,10 @@ console.log('App.JS is running!');
 const app = {
     title: "Indecision App",
     subTitle: "Let an app make your choices for you!",
-    options: ["one", "two"]
+    options: []
 }; 
+
+const appRoot = document.getElementById('app'); //Do not delete
 
 function userOptions(options){
     if(options.length > 0){
@@ -16,60 +18,68 @@ function userOptions(options){
     }
 }
 
-//if the above function is used, then you use {userOptions(app.options)} in the HTML to render the text to the screen
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    
+    const option = e.target.elements.option.value;
 
-const template = (
-    <div>
-        <h1>{app.title}</h1>
-        
-        {app.subTitle && <p>{app.subTitle}</p>}
+    if (option){
+        app.options.push(option);
+        e.target.elements.option.value = '';
 
-        {app.options.length > 0 ? 'Here are your options!' : 'No options'}
+        render();
+    }    
+};
 
-        <ul>
-            <li>Item One</li>
-            <li>Item Two</li>
-        </ul>
+const clear = () => {
+    // app.options.length = 0;
+    // OR
+    app.options = [];
 
-    </div>);
+    render();
+};
 
+ const onMakeDecision = () => {
 
+    const randNum = Math.floor(Math.random() * app.options.length);
+    const option = app.options[randNum];
+    console.log(randNum);
 
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////////////////
-
-const user = {
-    // name: 'Sydney',
-    age: 21,
-    userLocation: 'Indianapolis'
-}
-
-// checks to see if userLocation exists
-function getLocation(userLocation){
-    if (userLocation){
-        return <p>Location: {userLocation}</p>;
+    if(app.options.length > 1){
+        alert(option);
     }
-   };
 
-const templateTwo = (
-    <div>
-        <h1>{user.name ? user.name : 'Anonymous'}</h1>
-        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-        {getLocation(user.userLocation)}
+ };
+
+    const render = () => {
+        const template = (
+            <div>
+                <h1>{app.title}</h1>
+                
+                {app.subTitle && <p>{app.subTitle}</p>}
         
-    </div>
-);
+                <p>{app.options.length > 0 ? 'Here are your options!' : 'No options'}</p>
+                <p>{app.options.length}</p>
+                <button onClick={onMakeDecision} className="btn-info">What should I do?</button>
+                <button className="btn-danger" onClick={clear}>Remove All</button>
+
+                <ul>
+                    {app.options.map((option) => <li id={option + '-' + 'item'} key={option}>{option}</li>)}
+                </ul>
+    
+                <form onSubmit={onFormSubmit}>
+                    <input type="text" name="option"/>
+                    <button className="btn-info">Add Option</button>
+                </form>
+        
+            </div>
+        );
+
+        ReactDOM.render(template, appRoot);  
+    };
 
 
-const appRoot = document.getElementById('app');
-const userRoot = document.getElementById('user');
+    render();
 
-ReactDOM.render(template, appRoot);
-ReactDOM.render(templateTwo, userRoot);
+
+   
