@@ -1,13 +1,13 @@
 
 class Person{
-    constructor(name, location, age){
+    constructor(name, age, location){
         this.name = name || 'Anonymous';
         // this.location = location;
         this.age = age || 0;
     }
 
     getGreeting(){
-        return `${this.name} says "Hello!"`;
+        return ` Hello!  My name is ${this.name}`;
     }
 
     getDescription(){
@@ -36,27 +36,31 @@ class Student extends Person{
     }
 };
 
-class Employee extends Student{
+class Traveler extends Person{
 
-    constructor(name, age, major, career){
-        super(name, age, major);
-
-        this.career = career || 'No Job';
+    constructor(name, age, homeLocation){
+        super(name, age);
+        this.homeLocation = homeLocation || "a cardboard box";
     }
 
-    getCareer(){
-        // let career = 
-        return `${this.name} has the career of ${this.career}`;
+    getGreeting(){
+        let greeting = super.getGreeting();
+
+            greeting = greeting += `. I am visiting from ${this.homeLocation}.`;
+
+        return greeting;
     }
+
 }
 
-const me = new Student('Sydney', 21, 'English', 'Web Developer');
+
+const me = new Traveler('Sydney', 21, 'Indianapolis');
 console.log('Me = ' + me);
 console.log('Me.getGreeting() = ' + me.getGreeting());
 console.log('Me.GetDescription() = ' + me.getDescription());
-console.log('Me.hasMajor() = ' + me.hasMajor());
+// console.log('Me.hasMajor() = ' + me.hasMajor());
+console.log('Me.getGreeting(homeLocation) = ' + me.getGreeting());
 // console.log('Me.hasCareer() = ' + me.hasMajor());
-console.log('Me.hasCareer() = ' + me.getCareer()); 
 
 // const you = new Person();
 
