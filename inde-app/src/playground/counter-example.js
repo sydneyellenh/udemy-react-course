@@ -1,45 +1,135 @@
-const template = (
-    <div>
-        <h1>{app.title}</h1>
+
+
+class Counter extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.add = this.add.bind(this);
+        this.subtract = this.subtract.bind(this);
+        this.reset = this.reset.bind(this);
+
+        this.state = {
+            count: 0
+        }
+    }
+    add(){
+        this.setState((prevState) => {
+            return {
+                count: prevState.count+ 1
+            }
+        });
+        // this.state.count = this.state.count + 1;
+        console.log(this.state);
+
+    }
+
+    subtract(){
+        this.setState((prevState) => {
+            return{
+                count: prevState.count - 1
+            }
+        });
+    }
+
+    reset(){
+        this.setState(() => {
+            return{
+                count: 0
+            }
+        });
+    }
+
+    render(){
+        return (
+            <div>
+                <h1>Count: {this.state.count}</h1>
+                <button className="btn-success" onClick={this.add}>+</button>
+                <button className="btn-info" onClick={this.subtract}>-</button>
+                <button className="btn-danger" onClick={this.reset}>Reset</button>
+            </div>
+        )
+    }
+}
+
+const timer = require('react-native-timer');
+
+class Foo extends React.Component {
+  state = {
+    showMsg: false
+  };
+
+  componentWillUnmount() {
+    timer.clearTimeout(this);
+  }
+
+  showMsg() {
+    this.setState({showMsg: true}, () => timer.setTimeout(
+      this, 'hideMsg', () => this.setState({showMsg: false}), 2000
+    ));
+  }
+
+  render() {
+    return {
+      <View>
+        <TouchableOpacity onPress={() => requestAnimationFrame(() => this.showMsg())}>
+          <Text>Press Me</Text>
+        </TouchableOpacity>
+
+        {this.state.showMsg ? (
+          <Text>Hello!!</Text>
+        ) : (
+          null
+        )}
+      </View>
+    }
+  }
+}
+
+
+ReactDOM.render(<Counter/>, document.getElementById('app'));
+
+// const template = (
+//     <div>
+//         <h1>{app.title}</h1>
         
-        {app.subTitle && <p>{app.subTitle}</p>}
+//         {app.subTitle && <p>{app.subTitle}</p>}
 
-        {app.options.length > 0 ? 'Here are your options!' : 'No options'}
+//         {app.options.length > 0 ? 'Here are your options!' : 'No options'}
 
-        <ul>
-            <li>Item One</li>
-            <li>Item Two</li>
-        </ul>
+//         <ul>
+//             <li>Item One</li>
+//             <li>Item Two</li>
+//         </ul>
 
-    </div>);
+//     </div>);
 
-let count = 0;
-const addOne = () => {
-    count++;
-    renderCounterApp();
-};
+// let count = 0;
+// const addOne = () => {
+//     count++;
+//     renderCounterApp();
+// };
 
-const minusOne = () => {
-    count--;
-    renderCounterApp();
-};
+// const minusOne = () => {
+//     count--;
+//     renderCounterApp();
+// };
 
-const reset = () => {
-    count = 0;
-    renderCounterApp();
-};
+// const reset = () => {
+//     count = 0;
+//     renderCounterApp();
+// };
 
 
-// console.log(templateTwo);
+// // console.log(templateTwo);
 
-const renderCounterApp = () => {
-    const templateTwo = (
-        <div>
-            <h1>Count: {count}</h1>
-            <button id="add" className="button btn-info" onClick={addOne}>+1</button>
-            <button id="minus" className="button btn-info" onClick={minusOne}>-1</button>
-            <button id="clear" className="button btn-info" onClick={reset}>Clear</button>
-        </div>
-    );
-    ReactDOM.render(templateTwo, appRoot); //do not delete
-};
+// const renderCounterApp = () => {
+//     const templateTwo = (
+//         <div>
+//             <h1>Count: {count}</h1>
+//             <button id="add" className="button btn-info" onClick={addOne}>+1</button>
+//             <button id="minus" className="button btn-info" onClick={minusOne}>-1</button>
+//             <button id="clear" className="button btn-info" onClick={reset}>Clear</button>
+//         </div>
+//     );
+//     ReactDOM.render(templateTwo, appRoot); //do not delete
+// };
