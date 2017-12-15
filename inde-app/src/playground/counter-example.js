@@ -25,9 +25,11 @@ class Counter extends React.Component{
 
     subtract(){
         this.setState((prevState) => {
+            if(prevState.count >= 1){
             return{
                 count: prevState.count - 1
             }
+        }
         });
     }
 
@@ -38,7 +40,7 @@ class Counter extends React.Component{
             }
         });
     }
-
+    
     render(){
         return (
             <div>
@@ -46,45 +48,14 @@ class Counter extends React.Component{
                 <button className="btn-success" onClick={this.add}>+</button>
                 <button className="btn-info" onClick={this.subtract}>-</button>
                 <button className="btn-danger" onClick={this.reset}>Reset</button>
+                <br/>
             </div>
         )
     }
 }
 
-const timer = require('react-native-timer');
-
-class Foo extends React.Component {
-  state = {
-    showMsg: false
-  };
-
-  componentWillUnmount() {
-    timer.clearTimeout(this);
-  }
-
-  showMsg() {
-    this.setState({showMsg: true}, () => timer.setTimeout(
-      this, 'hideMsg', () => this.setState({showMsg: false}), 2000
-    ));
-  }
-
-  render() {
-    return {
-      <View>
-        <TouchableOpacity onPress={() => requestAnimationFrame(() => this.showMsg())}>
-          <Text>Press Me</Text>
-        </TouchableOpacity>
-
-        {this.state.showMsg ? (
-          <Text>Hello!!</Text>
-        ) : (
-          null
-        )}
-      </View>
-    }
-  }
-}
-
+  
+  
 
 ReactDOM.render(<Counter/>, document.getElementById('app'));
 
