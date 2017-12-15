@@ -1,30 +1,46 @@
 console.log('Visibility.js is working!');
 
-let visibility = false;
+// let visibility = false;
 
-const toggle = () => {
-    visibility = !visibility;
-    render();
-}
+class Visibility extends React.Component{
+    constructor(props){
+        super(props);
+        this.toggle = this.toggle.bind(this);
 
-const render = () => {
+        this.state = {
+            visible: false
+        }
 
-    const jsx = (
+        //  console.log(this.toggle);
+         console.log(this.state.visible);
 
-        <div>
-        <h1>Visibility Toggle</h1>
-        <button className="btn-info" onClick={toggle}>
-        {visibility ? 'Hide Details' : 'Show details'}
-            </button>
-            {visibility && (
-                <div><p>Here is my text!</p></div>
-            )}
-        </div>
+    }
 
-    );
+        toggle(){
+            this.setState((prevState) => {
+               return{
+                visible: !prevState.visible
+               } 
+               
+            });
+            console.log(this.state.visible);
+        }
+        
 
-    ReactDOM.render(jsx, document.getElementById('app'));
 
-};
+        render(){
+            return(
+                <div>
+                <h1>Visibility Toggle</h1>
+                <button className="btn-info" onClick={this.toggle}>
+                {this.state.visible ? 'Hide Details' : 'Show details'}
+                    </button>
+                    {this.state.visible && (<div><p>Here is my text!</p></div>)}
+                </div>
+            )
+        }
+        
+    }
 
-render();
+
+ReactDOM.render(<Visibility/>, document.getElementById('app'));
