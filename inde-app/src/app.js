@@ -7,7 +7,7 @@ class IndecisionApp extends React.Component{
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
         this.state = {
-            options: ['Item One', 'Item Two', 'Item Three']
+            options: []
         }
     }
 
@@ -29,8 +29,19 @@ class IndecisionApp extends React.Component{
             }
     }
 
-    handleAddOption(addOption){
-        console.log(addOption);
+    handleAddOption(option){
+
+        if (!option){
+            return `Enter valid value to add item`;
+        } else if (this.state.options.indexOf(option) > -1){
+            return `This option already exists`;
+        }
+        
+        this.setState((prevState) => {
+            return {
+                options: prevState.options.concat([option])
+            }
+        });
 }
 
     render(){
@@ -46,7 +57,7 @@ class IndecisionApp extends React.Component{
                 handlePick={this.handlePick} 
             />
             <AddOption
-                handleAddOption={handleAddOption}
+                handleAddOption={this.handleAddOption}
             />
             <Options 
                 options={this.state.options}
@@ -73,10 +84,6 @@ class Header extends React.Component{
 }
 
 class Action extends React.Component{
-
-    // if(hasOptions = 0){
-    //     document.getElementById('what-do').style.visibility = 'hidden';
-    // }
 
     render(){
         return (
@@ -118,15 +125,25 @@ class Option extends React.Component{
 }
 
 class AddOption extends React.Component{
+    constructor(props){
+        super(props);
+        this.handleAddOption = this.handleAddOption.bind(this);
+        this.state = {
+            error: undefined
+        }
+    }
 
     handleAddOption(e){
-        e.preventDefault(e);
+        e.preventDefault();
             
             const option = e.target.elements.option.value.trim();
-        
-            if (option){
-                this.props.handleAddOption(option);
-        }
+            const error = this.props.handleAddOption(option);
+
+            this.setState(() => {
+                return {
+                    error
+                }
+            });
 }
     
     render(){
