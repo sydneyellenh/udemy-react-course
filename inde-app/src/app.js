@@ -1,5 +1,9 @@
 console.log('App.JS is running!');
 
+//stateless functional component
+
+
+
 class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
@@ -68,61 +72,48 @@ class IndecisionApp extends React.Component{
     }
 }
 
-class Header extends React.Component{
-
-    render(){
-        // console.log(this.props);
-        return (
-        
+const Header = (props) => {
+    return(
             <div>
-                <h1>{this.props.title}</h1>
-                <h3>{this.props.subtitle}</h3>
+                <h1>{props.title}</h1>
+                <h3>{props.subtitle}</h3>
             </div>
 
-        );
-    }
-}
+    );
+};
 
-class Action extends React.Component{
-
-    render(){
-        return (
+const Action = (props) => {
+            return (
             <div>
                 <button id="what-do" 
-                onClick={this.props.handlePick} className="btn-info"
-                disabled={!this.props.hasOptions}
-                >
+                onClick={props.handlePick} className="btn-info"
+                disabled={!props.hasOptions}>
                     What should I do?
                 </button>
             </div>
         );
-    }
-}
+};
 
-class Options extends React.Component{
-    render(){
-        return (
+const Options = (props) => {
+            return (
             <div>
-                <h4>You have {this.props.options.length} options:</h4>
+                <h4>You have {props.options.length} options:</h4>
 
-                {this.props.options.map((option) => <Option key={option} optionText={option}/> )}
+                {props.options.map((option) => <Option key={option} optionText={option}/> )}
 
-                <button onClick={this.props.handleDeleteOptions} className="btn-danger">Clear Selection</button>                
+                <button onClick={props.handleDeleteOptions} className="btn-danger">Clear Selection</button>                
                 
             </div>
         );
-    }
-}
+};
 
-class Option extends React.Component{
-    render(){
+const Option = (props) => {
         return (
             <div>
-                <li>{this.props.optionText}</li>
+                <li>{props.optionText}</li>
             </div>
         );
-    }
-}
+};
 
 class AddOption extends React.Component{
     constructor(props){
@@ -140,15 +131,14 @@ class AddOption extends React.Component{
             const error = this.props.handleAddOption(option);
 
             this.setState(() => {
-                return {
-                    error
-                }
+                return { error }
             });
 }
     
     render(){
         return (
             <div>
+            {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}> 
                 <input type="text" name="option"/>
                 <button className="btn-success">Add Option</button>
@@ -158,5 +148,16 @@ class AddOption extends React.Component{
     }
 }
 
+// const User = (props) => {
+//     return (
+//         <div>
+//             <p>Name: {props.name} </p>
+//             <p>Age: {props.age}</p>
+//         </div>
+//     );
+// }
 
-ReactDOM.render(<IndecisionApp/>, document.getElementById('app'));
+ReactDOM.render(
+    <IndecisionApp/>
+    // <User name="Sydney" age="21"/>
+    , document.getElementById('app'));
