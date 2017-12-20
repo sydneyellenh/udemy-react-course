@@ -34,9 +34,7 @@ var IndecisionApp = function (_React$Component) {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
-                return {
-                    options: []
-                };
+                return { options: [] };
             });
         }
     }, {
@@ -61,9 +59,7 @@ var IndecisionApp = function (_React$Component) {
             }
 
             this.setState(function (prevState) {
-                return {
-                    options: prevState.options.concat([option])
-                };
+                return { options: prevState.options.concat([option]) };
             });
         }
     }, {
@@ -127,7 +123,8 @@ var Action = function Action(props) {
         React.createElement(
             'button',
             { id: 'what-do',
-                onClick: props.handlePick, className: 'btn-info',
+                onClick: props.handlePick,
+                className: 'btn-info',
                 disabled: !props.hasOptions },
             'What should I do?'
         )
@@ -194,7 +191,15 @@ var AddOption = function (_React$Component2) {
             this.setState(function () {
                 return { error: error };
             });
+
+            document.getElementsByTagName('input')[0].value = '';
         }
+
+        // clearInput(){
+
+
+        // }
+
     }, {
         key: 'render',
         value: function render() {
@@ -209,7 +214,9 @@ var AddOption = function (_React$Component2) {
                 React.createElement(
                     'form',
                     { onSubmit: this.handleAddOption },
-                    React.createElement('input', { type: 'text', name: 'option' }),
+                    React.createElement('input', { type: 'text', name: 'option'
+                        // onSubmit={this.handleAddOption}
+                    }),
                     React.createElement(
                         'button',
                         { className: 'btn-success' },

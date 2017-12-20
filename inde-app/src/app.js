@@ -16,11 +16,7 @@ class IndecisionApp extends React.Component{
     }
 
     handleDeleteOptions(){
-        this.setState(() => {
-            return{
-                options: []
-            }
-        });
+        this.setState (() => ({ options: [] }));
     }
 
     handlePick(){
@@ -40,13 +36,9 @@ class IndecisionApp extends React.Component{
         } else if (this.state.options.indexOf(option) > -1){
             return `This option already exists`;
         }
-        
-        this.setState((prevState) => {
-            return {
-                options: prevState.options.concat([option])
-            }
-        });
-}
+
+        this.setState((prevState) => ( { options: prevState.options.concat([option]) } ));
+    }
 
     render(){
         const title = 'Indecision App';
@@ -94,7 +86,8 @@ const Action = (props) => {
             return (
             <div>
                 <button id="what-do" 
-                onClick={props.handlePick} className="btn-info"
+                onClick={props.handlePick} 
+                className="btn-info"
                 disabled={!props.hasOptions}>
                     What should I do?
                 </button>
@@ -131,6 +124,7 @@ class AddOption extends React.Component{
             error: undefined
         }
     }
+    
 
     handleAddOption(e){
         e.preventDefault();
@@ -141,14 +135,24 @@ class AddOption extends React.Component{
             this.setState(() => {
                 return { error }
             });
-}
+
+            document.getElementsByTagName('input')[0].value = '';
+    
+    }
+
+    // clearInput(){
+
+
+    // }
     
     render(){
         return (
             <div>
             {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}> 
-                <input type="text" name="option"/>
+                <input type="text" name="option" 
+                // onSubmit={this.handleAddOption}
+                />
                 <button className="btn-success">Add Option</button>
                 </form>                
             </div>
