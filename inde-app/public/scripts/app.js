@@ -24,6 +24,7 @@ var IndecisionApp = function (_React$Component) {
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
+        _this.handleDeleteOne = _this.handleAddOption.bind(_this);
         _this.state = {
             options: props.options
         };
@@ -33,6 +34,13 @@ var IndecisionApp = function (_React$Component) {
     _createClass(IndecisionApp, [{
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
+            this.setState(function () {
+                return { options: [] };
+            });
+        }
+    }, {
+        key: 'handleDeleteOne',
+        value: function handleDeleteOne() {
             this.setState(function () {
                 return { options: [] };
             });
@@ -59,7 +67,7 @@ var IndecisionApp = function (_React$Component) {
             }
 
             this.setState(function (prevState) {
-                return { options: prevState.options.concat([option]) };
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
@@ -82,7 +90,8 @@ var IndecisionApp = function (_React$Component) {
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteOne: this.handleDeleteOne
                 })
             );
         }
@@ -143,7 +152,11 @@ var Options = function Options(props) {
             ' options:'
         ),
         props.options.map(function (option) {
-            return React.createElement(Option, { key: option, optionText: option });
+            return React.createElement(Option, {
+                key: option,
+                optionText: option,
+                handleDeleteOne: props.handleDeleteOne
+            });
         }),
         React.createElement(
             'button',
@@ -158,10 +171,20 @@ var Option = function Option(props) {
         'div',
         null,
         React.createElement(
-            'li',
+            'p',
             null,
             props.optionText
-        )
+        ),
+        React.createElement(
+            'button',
+            {
+                onClick: function onClick(e) {
+                    props.handleDeleteOne(props.optionText);
+                }
+            },
+            'Remove'
+        ),
+        React.createElement('br', null)
     );
 };
 
@@ -228,6 +251,23 @@ var AddOption = function (_React$Component2) {
     }]);
 
     return AddOption;
+}(React.Component);
+
+var Clock = function (_React$Component3) {
+    _inherits(Clock, _React$Component3);
+
+    function Clock(props) {
+        _classCallCheck(this, Clock);
+
+        var _this3 = _possibleConstructorReturn(this, (Clock.__proto__ || Object.getPrototypeOf(Clock)).call(this, props));
+
+        _this3.state = {
+            date: new Date()
+        };
+        return _this3;
+    }
+
+    return Clock;
 }(React.Component);
 
 // const User = (props) => {

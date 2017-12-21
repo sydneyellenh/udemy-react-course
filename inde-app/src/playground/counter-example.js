@@ -27,7 +27,7 @@ class Counter extends React.Component{
         this.setState((prevState) => {
             if(prevState.count >= 1){
             return{
-                count: prevState.count - 1
+                count: prevState.caqount - 1
             }
         }
         });
