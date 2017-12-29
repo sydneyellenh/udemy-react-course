@@ -1,9 +1,12 @@
 class TimerExample extends React.Component {
     constructor(props) {
       super(props);
+
       this.state = {
         elapsed: 0
       };
+
+
     }
     componentDidMount() {
       // componentDidMount is called by react when the component 
@@ -28,6 +31,10 @@ class TimerExample extends React.Component {
       });
   
     }
+
+    startTimer(){
+      alert('onclick works!');
+    }
   
     render() {
       const elapsed = Math.round(this.state.elapsed / 100);
@@ -42,12 +49,17 @@ class TimerExample extends React.Component {
       // Although we return an entire <p> element, react will smartly update
       // only the changed parts, which contain the seconds variable.
       
-      return ( < p > This example was started < b > {seconds} seconds </b> ago.</p >
+      return ( 
+        <div>
+          <p> This example was started <b> {seconds} seconds </b> ago.</p>
+          <button onClick={start=(Date.now)}>Start</button>
+        </div>
       )
     }
   }
   
+
   
-  ReactDOM.render(<TimerExample start = {Date.now()}/>,
+  ReactDOM.render(<TimerExample/>,
     document.getElementById('app')
   );

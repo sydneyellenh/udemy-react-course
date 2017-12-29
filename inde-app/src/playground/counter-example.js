@@ -9,13 +9,24 @@ class Counter extends React.Component{
         this.reset = this.reset.bind(this);
 
         this.state = {
-            count: props.count
+            elapsed: props.elapsed
         }
     }
+
+    tick() {
+        // This function is called every 50 ms. It updates the 
+        // elapsed counter. Calling setState causes the component to be re-rendered
+    
+        this.setState({
+          elapsed: new Date() - this.props.start
+        });
+    
+      }
+
     add(){
         this.setState((prevState) => {
             return {
-                count: prevState.count+ 1
+                elapsed: prevState.elapsed+ 1
             }
         });
         // this.state.count = this.state.count + 1;
@@ -24,10 +35,10 @@ class Counter extends React.Component{
     }
 
     subtract(){
-        this.setState((prevState) => {
-            if(prevState.count >= 1){
+        this.setState((prevState) => { 
+            if(prevState.elapsed >= 1){
             return{
-                count: prevState.caqount - 1
+                elapsed: prevState.elapsed - 1
             }
         }
         });
@@ -36,7 +47,7 @@ class Counter extends React.Component{
     reset(){
         this.setState(() => {
             return{
-                count: 0
+                elapsed: 0
             }
         });
     }
@@ -44,7 +55,7 @@ class Counter extends React.Component{
     render(){
         return (
             <div>
-                <h1>Count: {this.state.count}</h1>
+                <h1>Count: {this.state.elapsed}</h1>
                 <button className="btn-success" onClick={this.add}>+</button>
                 <button className="btn-info" onClick={this.subtract}>-</button>
                 <button className="btn-danger" onClick={this.reset}>Reset</button>
@@ -55,7 +66,7 @@ class Counter extends React.Component{
 }
 
 Counter.defaultProps = {
-    count: 0
+    elapsed: 0
 };
   
 

@@ -1,30 +1,58 @@
 console.log('App.JS is running!');
-
 //stateless functional component
-
-
-
 class IndecisionApp extends React.Component{
     constructor(props){
         super(props);
         this.handleDeleteOptions = this.handleDeleteOptions.bind(this);
         this.handlePick = this.handlePick.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
-        this.handleDeleteOne = this.handleAddOption.bind(this);
+        this.handleDeleteOne = this.handleDeleteOne.bind(this);
         this.state = {
             options: props.options
         }
     }
 
-    handleDeleteOptions(){
+componentDidMount(){
+
+    try {
+
+        const json = localStorage.getItem('options');
+        const options = JSON.parse(json);
+    
+        if (options) {
+            this.setState(() => ({ options: options}))
+        }
+    }
+
+    catch (e){
+        //do nothing
+    }
+}
+
+componentDidUpdate(prevProps, prevState){
+
+    if (prevState.options.length !== this.state.options.length){
+
+        const json = JSON.stringify(this.state.options);
+        localStorage.setItem('options', json);
+    }
+}
+
+componentWillUnmount(){
+    console.log('componentWillUnmount');
+}
+
+handleDeleteOptions(){
         this.setState (() => ({ options: [] }));
-    }
+}
 
-    handleDeleteOne(){
-        this.setState(() => ({ options: [] }));
-    }
+handleDeleteOne(optionToRemove){
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option) => optionToRemove !== option)
+          }));
+ }
 
-    handlePick(){
+handlePick(){
 
             const randNum = Math.floor(Math.random() * this.state.options.length);
             const option = this.state.options[randNum];
@@ -32,9 +60,9 @@ class IndecisionApp extends React.Component{
             if (this.state.options.length > 1){
                 alert(option);
             }
-    }
+}
 
-    handleAddOption(option){
+handleAddOption(option){
 
         if (!option){
             return `Enter valid value to add item`;
@@ -42,7 +70,9 @@ class IndecisionApp extends React.Component{
             return `This option already exists`;
         }
 
-        this.setState((prevState) => ( { options: prevState.options.concat(option) } ));
+        this.setState((prevState) => ( { 
+            options: prevState.options.concat(option) 
+        } ));
     }
 
     render(){
@@ -104,8 +134,8 @@ const Action = (props) => {
 const Options = (props) => {
             return (
             <div>
-                <h4>You have {props.options.length} options:</h4>
-
+                
+                {props.options.length === 0 && <p>Please add an option to get started!</p>}
                 { props.options.map((option) => (
                     <Option 
                     key={option} 
@@ -123,8 +153,8 @@ const Options = (props) => {
 const Option = (props) => {
         return (
             <div>
-                <p>{props.optionText}</p>
-                <button 
+                {props.optionText}
+                <button className="btn-warning"
                     onClick={(e) => {
                         props.handleDeleteOne(props.optionText);
                     }}
@@ -154,7 +184,11 @@ class AddOption extends React.Component{
 
             this.setState(() => ({ error }));
 
+            if (!error){
+                e.target.elements.option.value = '';
+            }
 
+            //this clears the input for the text box upon form enter
             document.getElementsByTagName('input')[0].value = '';
     
     }
@@ -179,16 +213,7 @@ class AddOption extends React.Component{
     }
 }
 
-class Clock extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state = {
-            date: new Date()
-        };
-    }
-
-}
 
 // const User = (props) => {
 //     return (
