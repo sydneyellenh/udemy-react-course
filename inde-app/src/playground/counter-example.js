@@ -9,9 +9,40 @@ class Counter extends React.Component{
         this.reset = this.reset.bind(this);
 
         this.state = {
-            elapsed: props.elapsed
+            elapsed: 0
         }
     }
+
+    componentDidMount(){
+
+        try {
+    
+            const elapsedString = localStorage.getItem('elapsed');
+            const elapsed = parseInt(elapsedString, 10);
+        
+            if (!isNaN(elapsed)) {
+                this.setState(() => ({ elapsed: elapsed}))
+            }
+        }
+    
+        catch (e){
+            //do nothing
+        }
+    }
+    
+    componentDidUpdate(prevProps, prevState){
+    
+        if(prevState.elapsed !== this.state.elapsed){
+            localStorage.setItem('elapsed', this.state.elapsed)
+        }
+    
+    }
+    
+    componentWillUnmount(){
+        console.log('componentWillUnmount');
+    }
+    
+
 
     tick() {
         // This function is called every 50 ms. It updates the 
@@ -20,7 +51,6 @@ class Counter extends React.Component{
         this.setState({
           elapsed: new Date() - this.props.start
         });
-    
       }
 
     add(){
@@ -65,10 +95,7 @@ class Counter extends React.Component{
     }
 }
 
-Counter.defaultProps = {
-    elapsed: 0
-};
-  
+
 
 ReactDOM.render(<Counter/>, document.getElementById('app'));
 
